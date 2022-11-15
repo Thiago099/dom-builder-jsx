@@ -1,12 +1,15 @@
-const data = effect({count:1})
+import "./style.css"
+const data = effect({count:1});
+
 
 const e = 
-    <button >
+    <button 
+        effect={data} 
+        parent={document.body}
+    >
         Count is: {()=>data.count}
     </button>
 
-e.parent(document.body)
-.effect(data)
-.event('click', () => {
+e.event('click', () => {
     data.count++;
 })

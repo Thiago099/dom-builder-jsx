@@ -191,24 +191,49 @@ export function element(type) {
 }
 
 
+
 export const dom = (name, props, ...children) => {
+
+    const handlers = {
+        "style":(prop)=>{
+            const styles = prop.split(';');
+            for(const style of styles) {
+                const [key, value] = style.split(':');
+                el.style(key,value);
+            }},
+         "class":(prop)=>{
+            // if is object
+            if(typeof prop === "object")
+            {
+                for(const [pkey, value] of Object.entries(prop))
+                {
+                    el.class(pkey,value);
+                }
+            }
+            else
+            {
+                el.class(prop);
+            }
+        },
+        "effect":(prop)=>{
+            el.effect(prop);
+        },
+        "parent":(prop)=>{
+            el.parent(prop);
+        },
+    }
+
     const el = element(name);
     if(props)
     {
+        console.log(props)
         Object.keys(props).forEach(key => {
-            // if(/.+:./g.test(key))
-            // {
-            //     const [event, type] = key.split(":")
-            //     el.event(type, props[key])
-            // }
-            // else 
-            if(key === 'style') {
-                    const styles = props[key].split(';');
-                    for(const style of styles) {
-                        const [key, value] = style.split(':');
-                        el.style(key,value);
-                    }
-            } else {
+            if(handlers[key])
+            {
+                handlers[key](props[key])
+            }
+            else
+            {
                 el.property(key, props[key]);
             }
         });
