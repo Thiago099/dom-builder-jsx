@@ -8,6 +8,7 @@
 
 .button{
     margin: 10px;
+    width: 300px;
     padding: 10px 30px;
     border-radius: 10px;
     border: none;
@@ -15,8 +16,16 @@
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
+    box-shadow: inset -10px -10px 10px 0 rgba(0,0,0,0.05),inset 10px 10px 10px 0 rgba(255,255,255,0.3);
+
+}
+.button:active{
+    box-shadow: inset 10px 10px 10px 0 rgba(0,0,0,0.05),inset -10px -10px 10px 0 rgba(255,255,255,0.3);
 }
 
-.button-active{
-    background-color: rgb(245, 136, 136);
+.title{
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
