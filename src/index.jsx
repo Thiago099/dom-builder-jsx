@@ -30,11 +30,20 @@ function card({data})
 
     for(const Propery in data.Propery)
     {
-        var name = data.Propery[Propery]
-        if(name instanceof entity)
+        function parse_prop(name)
         {
-            name = data.Propery[Propery].data.Name
+            if(name instanceof entity)
+            {
+                return name.data.Name
+            }
+            if(Array.isArray(name))
+            {
+                return name.map(parse_prop).join(", ")
+            }
+            return name
         }
+        var name = parse_prop(data.Propery[Propery])
+        
         const propery_element = 
         <div>
             <span style="color:red">{Propery}</span>: {name}
@@ -50,20 +59,19 @@ const main =
 
 const hot = new entity("Hot",{})
 
-const pan = new entity("Pan", {})
 const pan_handle = new entity("Pan Handle", {})
-const pan_body = new entity("Pan Body", { Temperature: "Hot" })
+const pan_body = new entity("Pan Body", { Temperature: hot })
+const pan = new entity("Pan", {Parts:[pan_handle, pan_body]})
 
 const bare_hands = new entity("Bare hands", {})
 
-const _something_hot = new entity("<Something Hot>", { Temperature: "Hot" })
+const _something_hot = new entity("<Something Hot>", { Temperature: hot })
 
 const touch = new entity("Touch", { Subject: _something_hot, Actor: bare_hands })
 
 const burn = new entity("Burn", { Subject: bare_hands, Actor: _something_hot })
 
 const causes = new entity("Causes", { Subject: touch, Actor: burn })
-
 
 
 
