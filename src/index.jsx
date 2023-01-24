@@ -1,6 +1,14 @@
 import "./style.less"
 
-function card(data)
+function entity(name, properties){
+    this.data = {
+        Name: name,
+        Propery: properties,
+    }
+    card(this).parent(main)
+}
+
+function card({data})
 {
     const body = ref()
     var result =
@@ -14,9 +22,14 @@ function card(data)
 
     for(const Propery in data.Propery)
     {
+        var name = data.Propery[Propery]
+        if(name instanceof entity)
+        {
+            name = data.Propery[Propery].data.Name
+        }
         const propery_element = 
         <div>
-            <span style="color:red">{Propery}</span>: {data.Propery[Propery]}
+            <span style="color:red">{Propery}</span>: {name}
         </div>
         propery_element.parent(body)
     }
@@ -27,33 +40,21 @@ const main =
 <div class="container">
 </div>
 
-card({
-    Name: "Pan",
-})
-.parent(main)
+const pan = new entity("Pan", {})
+const pan_handle = new entity("Pan Handle", {})
+const pan_body = new entity("Pan Body", { Temperature: "Hot" })
 
-card({
-    Name: "Pan plastic",
-})
-.parent(main)
+const bare_hands = new entity("Bare hands", {})
 
-card({
-    Name: "Pan Metal",
-    Propery: {
-        temperature: "Hot",
-    }
-})
-.parent(main)
+const _something_hot = new entity("<Something Hot>", { Temperature: "Hot" })
+
+const touch = new entity("Touch", { Subject: _something_hot, Actor: bare_hands })
+
+const burn = new entity("Burn", { Subject: bare_hands, Actor: _something_hot })
+
+const causes = new entity("Causes", { Subject: touch, Actor: burn })
 
 
-
-card({
-    Name: "{Something Hot}",
-    Propery: {
-        temperature: "Hot",
-    }
-})
-.parent(main)
 
 
 

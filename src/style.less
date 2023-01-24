@@ -5,23 +5,25 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .container{
     height: 100vh;
     font-size:2rem;
     .centered-flex-content();
+
 }
 .card{
-    width: 300px;
     background-color: #fff;
     border-radius: 10px;
     flex-direction: column;
     border: 1px solid #ccc;
-    margin: 0 10px;
+    margin: 10px;
 }
 .card-header{
-    padding:10px 0;
+    padding:10px;
     text-align: center;
 }
 .card-body{
@@ -30,3 +32,4 @@ body{
     display: flex;
     flex-direction: column;
 }
+
