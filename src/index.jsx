@@ -1,9 +1,16 @@
 import "./style.less"
 
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+  }
+
 function entity(name, properties){
     this.data = {
         Name: name,
         Propery: properties,
+        Id: uuidv4()
     }
     card(this).parent(main)
 }
@@ -15,6 +22,7 @@ function card({data})
     <div class="card">
         <div class="card-header" style="color:green">
             {data.Name}
+            {/* <span class="id">{data.Id}</span> */}
         </div>
         <div class="card-body" ref={body} if={data.Propery && Object.entries(data.Propery).length > 0}>
         </div>
@@ -39,6 +47,8 @@ function card({data})
 const main = 
 <div class="container">
 </div>
+
+const hot = new entity("Hot",{})
 
 const pan = new entity("Pan", {})
 const pan_handle = new entity("Pan Handle", {})
