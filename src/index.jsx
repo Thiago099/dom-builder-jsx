@@ -38,7 +38,7 @@ function card({data})
             }
             if(Array.isArray(name))
             {
-                return name.map(parse_prop).join(", ")
+                return name.map(x=><div>{parse_prop(x)}</div>)
             }
             return name
         }
@@ -46,7 +46,9 @@ function card({data})
         
         const propery_element = 
         <div>
-            <span style="color:red">{Propery}</span>: {name}
+            <div class="property-container">
+                <span style="color:red">{Propery}</span>:&nbsp;<span class="property-group">{name}</span>
+            </div>
         </div>
         propery_element.parent(body)
     }
