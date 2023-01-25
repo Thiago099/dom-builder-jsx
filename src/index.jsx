@@ -41,7 +41,7 @@ function card({data})
     header.mounted(() => {
         var size = 30;
         header.style.fontSize = size + "px"
-        const parent_width = parseInt(header.parent_element.get_computed_style("width"))
+        const parent_width = parseInt(header.parentElement.get_computed_style("width"))
         while(header.offsetWidth > parent_width)
         {
             size -= 1
