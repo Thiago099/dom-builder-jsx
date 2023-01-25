@@ -1,5 +1,3 @@
-import "./style.less"
-
 
 const main = <div>Hello world</div>
 
